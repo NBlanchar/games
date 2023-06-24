@@ -1,0 +1,11 @@
+<div class="suggest_container">
+  <h1>Elementos relacionados con la busquea</h1>
+  <div class="suggest_wrapper">
+    <ng-container *ngFor="let game of listGames">
+      <div (click)="goToGameLookup(game.gameID)" class="container_card">
+        <p>{{ game.external }}</p>
+        <img src="{{ game.thumb }}" alt="" />
+      </div>
+    </ng-container>
+  </div>
+</div>

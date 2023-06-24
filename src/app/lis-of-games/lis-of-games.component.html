@@ -1,17 +1,17 @@
 <div class="container">
-  <ng-container *ngIf="listGames2.length > 0; else templateEmpty">
+  <ng-container *ngIf="listGames.length > 0; else templateEmpty">
     <h1>Todos los Juegos</h1>
     <div class="wrapper">
-      <div *ngFor="let game of listGames2" class="container_card">
+      <div *ngFor="let game of listGames" class="container_card">
         <img src="{{ game.thumb }}" alt="" />
         <p>{{ game.external }}</p>
-        <button>Ver detalles</button>
+        <button (click)="goToGameLookup(game.gameID)">Ver detalles</button>
       </div>
     </div>
   </ng-container>
-  <ng-template #templateEmpty>
-    <h1>
-      {{ message }}
-    </h1>
-  </ng-template>
 </div>
+<ng-template #templateEmpty>
+  <h1>
+    {{ message }}
+  </h1>
+</ng-template>

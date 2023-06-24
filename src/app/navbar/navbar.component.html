@@ -1,14 +1,18 @@
 <header>
   <nav class="nav">
-    <div class="nav_logo">
-      <img
-        height="150"
-        src="https://st2.depositphotos.com/47577860/46279/v/450/depositphotos_462798548-stock-illustration-game-pacman-play-icon-in.jpg"
-      />
+    <div
+       [ngClass]="{'nav_logo':!logo, 'nav_logo2':logo}"
+    >
+      <img src="./assets/pac-man.png" />
     </div>
     <div class="nav_filter">
       <span class="material-symbols-outlined"> search </span>
-      <input type="text" (ngModelChange)="prueba($event)" [ngModel]="filter"  placeholder="¿Qué estás buscando?" />
+      <input
+        type="text"
+        (ngModelChange)="getGames($event)"
+        [ngModel]="filter"
+        placeholder="¿Qué estás buscando?"
+      />
     </div>
     <div class="nav_shopping_cart">
       <p>Resumen de compras</p>
@@ -17,11 +21,11 @@
         <span class="badge">3</span>
       </div>
     </div>
+
     <div class="nav_profile">
       <span class="material-symbols-outlined"> account_circle </span>
       <span>Eduardo</span>
       <span class="material-symbols-outlined"> arrow_drop_down </span>
     </div>
   </nav>
-  
 </header>

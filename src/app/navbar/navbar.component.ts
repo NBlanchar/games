@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { DataService, Game } from '../services/data.service';
 
 @Component({
@@ -6,29 +6,43 @@ import { DataService, Game } from '../services/data.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   filter!: string;
   input: string = '';
+  logo = false;
   listGames: Game[] = [];
 
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if(window.scrollY>0){
+      this.logo=true
+    }else{
+      this.logo=false
+    }
+  }
   constructor(private readonly data: DataService) {}
 
-  ngOnInit(): void {}
-
-  prueba(input: string): void {
-    console.log('txt', input);
-    console.log('tamaño', input.length);
+  getGames(input: string): void {
     if (input.length > 2) {
-      console.log('entre');
       this.data.getGames(input).subscribe((game) => {
-        if(game.length>0){
-          this.data.setFilter({games:[...game], message:'Video Juegos Encontrados'});
-        }else{
-          this.data.setFilter({games:[...game], message:'No se ha encontrado videojuego con ese nombre intenta nuevamente'});
+        if (game.length > 0) {
+          this.data.setFilter({
+            games: [...game],
+            message: 'Video Juegos Encontrados',
+          });
+        } else {
+          this.data.setFilter({
+            games: [...game],
+            message:
+              'No se ha encontrado videojuego con ese nombre intenta nuevamente',
+          });
         }
       });
     } else {
-      this.data.setFilter({games:[], message:'Debe realizar una busqueda de minimo 2 letras'});
+      this.data.setFilter({
+        games: [],
+        message: 'Debe realizar una busqueda de minimo 2 letras',
+      });
     }
   }
 }

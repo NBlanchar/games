@@ -1,0 +1,35 @@
+<div class="content">
+  <div class="left">
+    <img src="{{ dataGame.thumb }}" alt="" />
+  </div>
+  <div class="right" *ngIf="dataGame.deals.length > 0; else templateEmpty">
+    <h2>{{ dataGame.title }}</h2>
+    <div *ngFor="let deal of dataGame.deals" class="deals">
+      <img src="https://www.cheapshark.com/{{ deal.thumb }}" alt="" />
+      <div class="price">
+        <p class="price">{{ deal.price | currency : "USD" }}</p>
+        <p
+          class="retailPrice"
+          [ngStyle]="{ display: deal.savings > 0 ? null : 'none' }"
+        >
+          {{ deal.retailPrice | currency : "USD" }}
+        </p>
+        <p
+          class="savings"
+          [ngStyle]="{ display: deal.savings > 0 ? null : 'none' }"
+        >
+          Ahorra ({{ deal.savings | number : ".1-2" }}%)
+        </p>
+      </div>
+      <button>agregar al carrito</button>
+    </div>
+  </div>
+</div>
+<app-suggest
+  (newGameEvent)="getGameLookup($event)"
+  [listGames]="suggest"
+></app-suggest>
+
+<ng-template #templateEmpty>
+  <h1>No se pueden visualizar las ofertas</h1>
+</ng-template>

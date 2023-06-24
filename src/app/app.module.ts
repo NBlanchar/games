@@ -6,14 +6,21 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LisOfGamesComponent } from './lis-of-games/lis-of-games.component';
 import { AppRoutingModule } from './app.routing.module';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe } from './pipes/filter.pipe';
+import { GameLookupComponent } from './game-lookup/game-lookup.component';
+import { PageNotFountComponent } from './page-not-fount/page-not-fount.component';
+import { SuggestComponent } from './suggest/suggest.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LisOfGamesComponent,
-    FilterPipe
+    GameLookupComponent,
+    PageNotFountComponent,
+    SuggestComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +28,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:SpinnerInterceptor, multi:true} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
