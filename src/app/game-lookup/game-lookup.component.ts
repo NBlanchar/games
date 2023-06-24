@@ -49,35 +49,19 @@ export class GameLookupComponent implements OnInit {
       (params: Params) => (this.id = params['gameId'])
     );
   }
-  getGameLookup(id: string): void {
-    this.data.getGameLookup(id).subscribe((game) => {
-      game && this.thumbStore(this.storesInfo, game);
-    });
-  }
+  //Obtiene la lista de tiendas de la API
   getStoreInfo(): void {
     this.data.getStoresInfo().subscribe((storesinfo) => {
       this.storesInfo = [...storesinfo];
     });
   }
-  getGames(game:DataGame): void {
-    let nameGame = game.title.slice(0, 3);
-    this.data.getGames(nameGame).subscribe((listGames) => {
-      console.log('lista de nuevos juegos',[...listGames])
-      listGames && this.getSuggest([...listGames]);
+  //Obtiene el detalle del video Juego por id
+  getGameLookup(id: string): void {
+    this.data.getGameLookup(id).subscribe((game) => {
+      game && this.thumbStore(this.storesInfo, game);
     });
   }
-  
-  getSuggest(games: Game[]): void {
-    console.log(this.suggest.length)
-    this.suggest.splice(0, 6)
-    for (let game of games) {
-        console.log(`List game ${game.gameID} ==  ${this.dataGame.gameID} juego `)
-      if (game.gameID !== this.dataGame.gameID && this.suggest.length < 6) {
-        this.suggest.push(game);
-      }
-    }
-    console.log(this.suggest);
-  }
+  // guarda el videojuego, las ofertas y las imagenes de la tienda
   thumbStore(stores: StoreInfo[], game: GameLookup): void {
     let listDeal: Deals[] = [];
     for (let deal of game.deals) {
@@ -101,5 +85,22 @@ export class GameLookupComponent implements OnInit {
       deals: listDeal,
     };
     this.getGames(this.dataGame);
+  }
+  //Obtiene la lista de VideoJuegos por nombre
+  getGames(game:DataGame): void {
+    let nameGame = game.title.slice(0, 3);
+    this.data.getGames(nameGame).subscribe((listGames) => {
+      listGames && this.getSuggest([...listGames]);
+    });
+  }
+  // Obtiene las sugerencia de video juego por nombre
+  // Seria mucho mejor por categoria pero la api no tiene dicha información
+  getSuggest(games: Game[]): void {
+    this.suggest.splice(0, 6)
+    for (let game of games) {
+      if (game.gameID !== this.dataGame.gameID && this.suggest.length < 6) {
+        this.suggest.push(game);
+      }
+    }
   }
 }

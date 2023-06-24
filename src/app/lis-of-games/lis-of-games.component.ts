@@ -20,13 +20,14 @@ export class LisOfGamesComponent implements OnInit {
   ngOnInit(): void {
     this.getfilter();
   }
-
+  //Obtiene la lista de videojuego del observable
   getfilter(): void {
     this.data.getFilter$.subscribe((search) => {
       this.listGames = [...search.games];
       this.message = search.message;
     });
   }
+  
   goToGameLookup(id: string): void {
     this.router.navigate(['game', id]);
   }

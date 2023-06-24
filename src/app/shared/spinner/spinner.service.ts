@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+// Se crea un observable y los metodos para cambiar su valor
 export class SpinnerService {
   isLoading$ = new Subject<boolean>();
   show():void{

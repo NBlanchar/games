@@ -11,7 +11,8 @@ export class NavbarComponent {
   input: string = '';
   logo = false;
   listGames: Game[] = [];
-
+  
+  // Perimite Leer la posición del scroll
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if(window.scrollY>0){
@@ -22,6 +23,7 @@ export class NavbarComponent {
   }
   constructor(private readonly data: DataService) {}
 
+  //agregra la lista de video juegos en el observable
   getGames(input: string): void {
     if (input.length > 2) {
       this.data.getGames(input).subscribe((game) => {

@@ -70,6 +70,7 @@ export class DataService {
   private readonly API = environment.api;
   constructor(private readonly http: HttpClient) {}
 
+  //Observable de Lista de Videojuegos
   get getFilter$(): Observable<SearchGame> {
     return this.games$.asObservable();
   }
@@ -77,11 +78,10 @@ export class DataService {
   setFilter(games: SearchGame): void {
     this.games$.next(games);
   }
-
+  //Consumo de la información de la API
   getGames(game: string): Observable<Game[]> {
     return this.http.get<Game[]>(`${this.API}games?title=${game}&limit=10`);
   }
-
   getGameLookup(id: string): Observable<GameLookup> {
     return this.http.get<GameLookup>(`${this.API}/games?id=${id}`);
   }

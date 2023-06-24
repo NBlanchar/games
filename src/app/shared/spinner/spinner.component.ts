@@ -7,6 +7,7 @@ import { SpinnerService } from './spinner.service';
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent {
+  // permite mostrar el loading al momento de 
   isLoading$=this.spinnerSvc.isLoading$;
   constructor( private readonly spinnerSvc:SpinnerService) { }
 

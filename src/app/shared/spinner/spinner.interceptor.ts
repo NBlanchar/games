@@ -11,7 +11,7 @@ import { SpinnerService } from './spinner.service';
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
   constructor(private readonly spinnerSvc: SpinnerService) {}
-
+  //Se cambia el valor del observale en la petición
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
